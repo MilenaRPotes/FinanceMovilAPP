@@ -1,0 +1,109 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:FinanceMovilApp"
+             x:Class="FinanceMovilApp.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <!--
+            ================================================================
+            1. PALETA DE COLORES (Basada en Identidad Visual de la app )
+            Definimos TODOS los colores para ambos temas aquí.
+            ================================================================
+            -->
+            
+            <!-- Paleta Modo Oscuro (Tema Estandar) -->
+            <!-- Azul Noche -->
+            <Color x:Key="DarkPrimaryBackground">#0D1B2A</Color>
+            <!-- Azul Acero -->
+            <Color x:Key="DarkSecondaryBackground">#1B263B</Color>
+            <!-- Blanco Hueso -->
+            <Color x:Key="DarkPrimaryText">#F8F9FA</Color>
+            <!-- Gris Perla -->
+            <Color x:Key="DarkSecondaryText">#E0E1DD</Color>
+            <!-- Dorado Imperial -->
+            <Color x:Key="DarkAccent">#FFC300</Color>
+            
+            <!-- Paleta Modo Claro -->
+            <!-- Blanco Hueso -->
+            <Color x:Key="LightPrimaryBackground">#F8F9FA</Color>
+            <!-- Blanco Puro -->
+            <Color x:Key="LightSecondaryBackground">#FFFFFF</Color>
+            <!-- Azul Noche -->
+            <Color x:Key="LightPrimaryText">#0D1B2A</Color>
+            <!-- Gris Piedra -->
+            <Color x:Key="LightSecondaryText">#415A77</Color>
+            <!-- Azul  -->
+            <Color x:Key="LightAccent">#0077B6</Color>
+
+
+            <!-- Paleta de Estado (Común para ambos temas) -->
+            <Color x:Key="VerdeCrecimiento">#4CAF50</Color>
+            <Color x:Key="RojoCoral">#E57373</Color>
+
+            <!--
+            ================================================================
+            2. DEFINICIÓN DE FUENTES (Tipografía)
+            Registo de fuentes personalizadas.
+            ================================================================
+            -->
+            <OnPlatform x:Key="LoraFont" x:TypeArguments="x:String">
+                <On Platform="Android" Value="Lora-Regular.ttf#Lora" />
+                <On Platform="iOS" Value="Lora-Regular" />
+            </OnPlatform>
+            <OnPlatform x:Key="InterFont" x:TypeArguments="x:String">
+                <On Platform="Android" Value="Inter-Regular.ttf#Inter" />
+                <On Platform="iOS" Value="Inter-Regular" />
+            </OnPlatform>
+
+            <!--
+            ================================================================
+            3. ESTILOS GLOBALES DE CONTROLES
+            Aquí traducimos nuestros mockups a estilos reutilizables.
+            Por defecto, los enlazamos a los colores del Modo Oscuro.
+            La lógica para cambiarlos dinámicamente se pondra lueog
+            ================================================================
+            -->
+
+            <!-- Estilo para el botón principal (CTA - Call to Action) -->
+            <Style TargetType="Button" x:Key="BotonPrimario">
+                <Setter Property="BackgroundColor" Value="{StaticResource DarkAccent}" />
+                <Setter Property="TextColor" Value="{StaticResource DarkPrimaryBackground}" />
+                <Setter Property="FontFamily" Value="InterFont" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="CornerRadius" Value="25" />
+                <Setter Property="Padding" Value="14" />
+                <Setter Property="HeightRequest" Value="50" />
+            </Style>
+
+            <!-- Estilo para títulos principales (como "Tu Fortaleza Financiera") -->
+            <Style TargetType="Label" x:Key="TituloPrincipal">
+                <Setter Property="FontFamily" Value="LoraFont" />
+                <Setter Property="TextColor" Value="{StaticResource DarkAccent}"/>
+                <Setter Property="FontSize" Value="28" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+
+            <!-- Estilo para texto de cuerpo normal -->
+            <Style TargetType="Label" x:Key="CuerpoTexto">
+                <Setter Property="FontFamily" Value="InterFont" />
+                <Setter Property="TextColor" Value="{StaticResource DarkPrimaryText}"/>
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+
+            <!-- Estilo para texto secundario o descriptivo -->
+            <Style TargetType="Label" x:Key="TextoSecundario">
+                <Setter Property="FontFamily" Value="InterFont" />
+                <Setter Property="TextColor" Value="{StaticResource DarkSecondaryText}"/>
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+
+            <!-- Estilo base para las páginas, define el color de fondo -->
+            <Style TargetType="ContentPage">
+                <Setter Property="BackgroundColor" Value="{StaticResource DarkPrimaryBackground}" />
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
