@@ -58,14 +58,8 @@ namespace FinanceMovilApp.ViewModels
         public AddTransactionViewModel(LocalDbService dbService)
         {
             _dbService = dbService; //asignacion inicial del servicio de base de datos
-
             //Inicia el formulario limpio 
             ClearForm();
-            //Date = DateTime.Now; // Configuracion por defecto a la fecha actual
-            //isIncome = false;
-            //// Inicializar frecuencia seleccionada
-            //SelectedFrequency = PaymentFrequency.None.ToString();
-
             //Inicializar categorias
             UpdateCategories();
         }
@@ -147,9 +141,6 @@ namespace FinanceMovilApp.ViewModels
             await App.Current.MainPage.DisplayAlert("¡Hecho!", "Transacción guardada correctamente.", "OK");
             //Limpiar el formulario después de guardar
             ClearForm();
-
-            //// Navigate back
-            //await Shell.Current.GoToAsync("..");
         }
 
     }

@@ -31,7 +31,7 @@ namespace FinanceMovilApp.Services
         }
 
         // --- TRANSACTION METHODS ---
-        //CRUD
+        //METODOS CRUD
         public async Task<List<TransactionModel>> GetTransactionsAsync()
         {
             await Init();
@@ -57,6 +57,30 @@ namespace FinanceMovilApp.Services
         {
             await Init();
             return await _database.DeleteAsync(item);
+        }
+
+        //--- METODOS ADICIONALES PARA DASHBOARD ---
+        // 1. Obtener solo los últimos 'count' movimientos (ej. 5)
+        public async Task<List<TransactionModel>> GetRecentTransactionsAsync(int count)
+        {
+            await Init();
+            return await _database.Table<TransactionModel>()
+                            .OrderByDescending(t => t.Date) // Ordenar por fecha (más nuevo primero)
+                            .Take(count)                    // Tomar solo la cantidad solicitada
+                            .ToListAsync();
+        }
+
+        // 2. Calcular el balance total directamente (sin cargar todo a la memoria visual)
+        public async Task<decimal> GetTotalBalanceAsync()
+        {
+            await Init();
+            // Traemos todo solo para sumar 
+            var allTransactions = await _database.Table<TransactionModel>().ToListAsync();
+
+            var totalIncome = allTransactions.Where(t => t.IsIncome).Sum(t => t.Amount);
+            var totalExpenses = allTransactions.Where(t => !t.IsIncome).Sum(t => t.Amount);
+
+            return totalIncome - totalExpenses;
         }
 
 

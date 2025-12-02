@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FinanceMovilApp.Views.AddTransactionPage"
-             Title="AddTransactionPage">
+             Title="Nueva Transacción"
+             BackgroundColor="{StaticResource DarkPrimaryBackground}">
 
     <ScrollView>
 
@@ -16,16 +17,39 @@
 
             <!--Income/Expense Switch-->
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="15">
-                <Label Text="Gasto" VerticalOptions="Center" Style="{StaticResource DarkPrimaryText}" ></Label>
-                <!-- Switch to toggle between Income and Expense -->
-                <Switch IsToggled="{Binding IsIncome}" OnColor="{StaticResource VerdeCrecimiento}"  ThumbColor="{StaticResource DarkPrimaryText}"></Switch>
-                <Label Text="Ingreso" VerticalOptions="Center" Style="{StaticResource DarkPrimaryText}"></Label>
+                <Label Text="Gasto" 
+                       VerticalOptions="Center" 
+                       TextColor="{StaticResource DarkPrimaryText}"
+                       FontFamily="InterFont"/>
+
+                <Switch IsToggled="{Binding IsIncome}" 
+                        OnColor="{StaticResource VerdeCrecimiento}">
+                    <!-- Color del riel cuando es ON (Ingreso) -->
+
+                    <Switch.Triggers>
+                        <!-- TRUCO: Cuando es GASTO (Off), pintamos la bolita de ROJO -->
+                        <DataTrigger TargetType="Switch" Binding="{Binding IsIncome}" Value="False">
+                            <Setter Property="ThumbColor" Value="{StaticResource RojoCoral}" />
+                        </DataTrigger>
+
+                        <!-- Cuando es INGRESO (On), pintamos la bolita de BLANCO para que resalte en el riel verde -->
+                        <DataTrigger TargetType="Switch" Binding="{Binding IsIncome}" Value="True">
+                            <Setter Property="ThumbColor" Value="{StaticResource DarkPrimaryText}" />
+                        </DataTrigger>
+                    </Switch.Triggers>
+
+                </Switch>
+
+                <Label Text="Ingreso" 
+                       VerticalOptions="Center" 
+                       TextColor="{StaticResource DarkPrimaryText}"
+                       FontFamily="InterFont"/>
             </HorizontalStackLayout>
 
             <!--Amount Entry -->
             <Frame BackgroundColor="{StaticResource DarkSecondaryBackground}" BorderColor="Transparent" CornerRadius="10" >
                 <VerticalStackLayout>
-                    <Label Text="MONTO" TextColor="{StaticResource LightSecondaryText}" FontSize="12"></Label>
+                    <Label Text="MONTO" TextColor="{StaticResource LightSecondaryText}" FontSize="12"  FontFamily="InterFont"></Label>
                     <Entry Text="{Binding Amount}" 
                            Keyboard="Numeric" 
                            TextColor="{StaticResource DarkAccent}"
@@ -74,7 +98,7 @@
             <VerticalStackLayout Spacing="10">
             <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
                 <CheckBox IsChecked="{Binding IsRecurring}" Color="{StaticResource DarkAccent}"/>
-                <Label Text="Es un pago frecuente" VerticalOptions="Center" Style="{StaticResource CuerpoTexto}" TextColor="{StaticResource DarkPrimaryText}"/>
+                <Label Text="Es frecuente?" VerticalOptions="Center" Style="{StaticResource CuerpoTexto}" TextColor="{StaticResource DarkPrimaryText}"/>
             </HorizontalStackLayout>
             
             <!--SELECTOR DE FRECUENCIA

@@ -2,6 +2,7 @@
 using FinanceMovilApp.Services;
 using FinanceMovilApp.ViewModels;
 using FinanceMovilApp.Views;
+using CommunityToolkit.Maui;
 
 namespace FinanceMovilApp
 {
@@ -12,6 +13,7 @@ namespace FinanceMovilApp
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -31,6 +33,9 @@ namespace FinanceMovilApp
             builder.Services.AddTransient<AddTransactionPage>();
             builder.Services.AddTransient<AddTransactionViewModel>();
 
+            //--- 3. Dashboard Page and ViewModel ---
+            builder.Services.AddTransient<DashboardPage>();
+            builder.Services.AddTransient<DashboardViewModel>();
             return builder.Build();
         }
     }

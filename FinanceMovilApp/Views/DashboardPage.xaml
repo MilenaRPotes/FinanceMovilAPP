@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodels="clr-namespace:FinanceMovilApp.ViewModels"
+             xmlns:models="clr-namespace:FinanceMovilApp.Models"
+             x:Class="FinanceMovilApp.Views.DashboardPage"
+             BackgroundColor="{StaticResource DarkPrimaryBackground}"
+             Title="Inicio">
+
+    <!-- Ejecutar el comando LoadData cada vez que aparece la pantalla -->
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior 
+                                        EventName="Appearing"
+                                        Command="{Binding LoadDataCommand}" />
+    </ContentPage.Behaviors>
+
+    <Grid RowDefinitions="Auto, *" Padding="20" RowSpacing="20">
+
+        <!-- SECCIÓN SUPERIOR: FORTALEZA FINANCIERA -->
+        <Frame Grid.Row="0" 
+               BackgroundColor="{StaticResource DarkSecondaryBackground}" 
+               BorderColor="{StaticResource DarkAccent}"
+               CornerRadius="20"
+               HasShadow="True">
+            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Label Text="TU FORTALEZA FINANCIERA" 
+                       TextColor="{StaticResource DarkAccent}"
+                       FontFamily="LoraFont"
+                       FontSize="18"
+                       HorizontalOptions="Center"/>
+
+                <Label Text="{Binding FinancialStrengthText}"
+                       TextColor="{StaticResource LightPrimaryBackground}"
+                       FontSize="36"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Frame>
+
+        <!-- SECCIÓN INFERIOR: LISTA DE TRANSACCIONES -->
+        <Grid Grid.Row="1" RowDefinitions="Auto, *">
+            <Label Grid.Row="0" 
+                   Text="Movimientos Recientes" 
+                   Style="{StaticResource TituloPrincipal}" 
+                   FontSize="20"
+                   HorizontalOptions="Start"
+                   Margin="0,0,0,10"/>
+
+            <!-- Lista con CollectionView -->
+            <CollectionView Grid.Row="1" ItemsSource="{Binding Transactions}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:TransactionModel">
+                        <Frame Margin="0,5" 
+                               Padding="15" 
+                               BackgroundColor="{StaticResource DarkSecondaryBackground}" 
+                               BorderColor="Transparent"
+                               CornerRadius="15">
+                            <Grid ColumnDefinitions="Auto, *, Auto">
+                                <!-- Icono (Placeholder) -->
+                                <Image Grid.Column="0" 
+                                       Source="paid.png" 
+                                       HeightRequest="30" 
+                                       WidthRequest="30"
+                                       Aspect="AspectFit"
+                                       Margin="0,0,15,0"/>
+
+                                <!-- Descripción y Fecha -->
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                    <Label Text="{Binding Description}" 
+                                           TextColor="{StaticResource LightPrimaryBackground}" 
+                                           FontAttributes="Bold"
+                                           FontSize="16"/>
+                                    <Label Text="{Binding CategoryName}" 
+                                           TextColor="{StaticResource LightSecondaryText}" 
+                                           FontSize="12"/>
+                                </VerticalStackLayout>
+
+                                <!-- Monto (Verde si ingreso, Rojo si gasto) -->
+                                <Label Grid.Column="2" 
+                                       Text="{Binding Amount, StringFormat='{0:C0}'}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       VerticalOptions="Center">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" Binding="{Binding IsIncome}" Value="True">
+                                            <Setter Property="TextColor" Value="{StaticResource VerdeCrecimiento}"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Label" Binding="{Binding IsIncome}" Value="False">
+                                            <Setter Property="TextColor" Value="{StaticResource RojoCoral}"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <!-- Vista vacía por si no hay datos -->
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                        <Label Text="No hay movimientos aún." TextColor="{StaticResource LightSecondaryText}"/>
+                        <Label Text="¡Empieza tu imperio hoy!" TextColor="{StaticResource DarkAccent}"/>
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+            </CollectionView>
+
+            <!-- Botón Flotante (FAB) para Agregar -->
+            <Button Grid.Row="1"
+                    Text="+"
+                    Command="{Binding GoToAddTransactionCommand}"
+                    BackgroundColor="{StaticResource DarkAccent}"
+                    TextColor="{StaticResource LightPrimaryText}"
+                    FontSize="30"
+                    CornerRadius="30"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    HorizontalOptions="End"
+                    VerticalOptions="End"
+                    Margin="20"
+                    Shadow="{Shadow Brush=Black, Offset='5,5', Opacity=0.5}"/>
+        </Grid>
+
+    </Grid>
+</ContentPage>

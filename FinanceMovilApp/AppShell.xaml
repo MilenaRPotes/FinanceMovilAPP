@@ -4,17 +4,43 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:FinanceMovilApp.Views"
-    Shell.FlyoutBehavior="Disabled"
     xmlns:local="clr-namespace:FinanceMovilApp"
-    Title="FinanceMovilApp">
-
     
+    Shell.FlyoutBehavior="Disabled"
+    Shell.BackgroundColor="{StaticResource DarkPrimaryBackground}"
+    Shell.TitleColor="{StaticResource DarkAccent}"
+    
+    Shell.TabBarBackgroundColor="{StaticResource DarkSecondaryBackground}"
+    Shell.TabBarTitleColor="{StaticResource DarkSecondaryText}"
+    Shell.TabBarUnselectedColor="{StaticResource DarkSecondaryText}"
+    Shell.TabBarForegroundColor="{StaticResource DarkAccent}">
+
     <!-- 
-        CAMBIO TEMPORAL ANTES DE HACER EL MENU DE NAVEGACION
+       BARRA DE PESTAÑAS
     -->
-    <ShellContent
-        Title="Nueva Transacción"
-        ContentTemplate="{DataTemplate views:AddTransactionPage}"
-        Route="AddTransactionPage" />
+    <TabBar>
+
+        <!-- 1. INICIO (Dashboard) -->
+        <Tab Title="Inicio" Icon="home_icon.png">
+            <!-- Reemplaza con tu nombre de icono real -->
+            <ShellContent ContentTemplate="{DataTemplate views:DashboardPage}" Route="DashboardPage" />
+        </Tab>
+
+        <!-- 2. METAS (Goals) -->
+        <Tab Title="Metas" Icon="goals_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate views:GoalsPage} " Route="GoalsPage" />
+        </Tab>
+
+        <!-- 3. PRESUPUESTO (Budget) -->
+        <Tab Title="Presupuesto" Icon="budget_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate views:BudgetPage}" Route="BudgetPage" />
+        </Tab>
+
+        <!-- 4. MENTALIDAD (Mindset) -->
+        <Tab Title="Mentalidad" Icon="mindset_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate views:MindsetPage}" Route="MindsetPage" />
+        </Tab>
+
+    </TabBar>
 
 </Shell>
