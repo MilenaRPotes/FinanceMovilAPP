@@ -1,12 +1,194 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:FinanceMovilApp.ViewModels"
+             xmlns:models="clr-namespace:FinanceMovilApp.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
              x:Class="FinanceMovilApp.Views.GoalsPage"
-             Title="GoalsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Metas"
+             BackgroundColor="{StaticResource DarkPrimaryBackground}">
+
+    <!-- Cargar datos al entrar -->
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Appearing" Command="{Binding LoadDataCommand}" />
+    </ContentPage.Behaviors>
+
+    <Grid RowDefinitions="Auto, *" Padding="20" RowSpacing="20" >
+        <!-- CABECERA: Resumen Total -->
+        <Frame Grid.Row="0" 
+               BackgroundColor="{StaticResource DarkSecondaryBackground}" 
+               BorderColor="{StaticResource DarkAccent}"
+               CornerRadius="20"
+               HasShadow="True"
+               >
+            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Label Text="TU REINO FINANCIERO" 
+                       TextColor="{StaticResource DarkAccent}" 
+                       FontFamily="LoraFont"
+                       FontSize="18"
+                       HorizontalOptions="Center"/>
+                <Label Text="{Binding TotalSaved, StringFormat='{0:C0}'}" 
+                       TextColor="{StaticResource VerdeCrecimiento}" 
+                       FontSize="36" 
+                       FontAttributes="Bold" 
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Frame>
+
+        <!-- LISTA DE METAS -->
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Goals}"
+                        SelectionMode="None"
+                        Margin="0,10,0,0">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="15"/>
+            </CollectionView.ItemsLayout>
+
+            <!--  Footer (Espacio vacío) para que la última card suba -->
+            <CollectionView.Footer>
+                <BoxView HeightRequest="100" Color="Transparent" />
+            </CollectionView.Footer>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:GoalModel" >
+                    <Grid Padding="0,0,0,15">
+
+                        <SwipeView Threshold="100">
+
+                            <!-- DESLIZAR IZQUIERDA: ELIMINAR -->
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Eliminar"
+                                               BackgroundColor="{StaticResource RojoCoral}"
+                                               IconImageSource="delete.png" 
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:GoalsViewModel}}, Path=DeleteGoalCommand}"
+                                               CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <!-- DESLIZAR DERECHA: EDITAR -->
+                            <SwipeView.LeftItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Editar"
+                                               BackgroundColor="{StaticResource LightSecondaryText}"
+                                               IconImageSource="edit.png"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:GoalsViewModel}}, Path=EditGoalCommand}"
+                                               CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+
+
+                            <Grid Padding="20,0">
+                                <!-- CONTENIDO PRINCIPAL DE LA TARJETA -->
+                            <Frame BackgroundColor="{StaticResource DarkSecondaryBackground}" 
+                               BorderColor="{Binding IsCompleted, Converter={toolkit:BoolToObjectConverter TrueObject={StaticResource VerdeCrecimiento}, FalseObject=Transparent}}"
+                               CornerRadius="15"
+                               HasShadow="True">
+
+                                <!-- GESTO: Tocar para abonar -->
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:GoalsViewModel}}, Path=AddFundsCommand}"
+                                                      CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+
+                                <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="Auto, *">
+
+                                    <!--1. Animacion Lottie de ahorro -->
+                                    <skia:SKLottieView Grid.Row="0" Grid.RowSpan="3" Grid.Column="0"
+                                                   Source="money.json"
+                                                   RepeatCount="-1"
+                                                   HeightRequest="120"
+                                                   WidthRequest="80"
+                                                   Margin="0,0,15,0"
+                                                   IsAnimationEnabled="True"
+                                                   IsVisible="{Binding IsCompleted, Converter={toolkit:InvertedBoolConverter}}"
+                                                   VerticalOptions="Center"/>
+
+                                    <!-- 2. Animación Lottie de CELEBRACIÓN (SOLO VISIBLE SI ESTÁ COMPLETADA) -->
+                                    <skia:SKLottieView Grid.Row="0" Grid.RowSpan="3" Grid.Column="0"
+                                                   Source="successful.json" 
+                                                   RepeatCount="-1"
+                                                   HeightRequest="120"
+                                                   WidthRequest="80"
+                                                   Margin="0,0,15,0"
+                                                   IsAnimationEnabled="True"
+                                                   IsVisible="{Binding IsCompleted}"
+                                                   VerticalOptions="Center"/>
+
+
+                                    <!-- Nombre y Fecha -->
+                                    <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+                                        <Label Text="{Binding Name}" 
+                                           TextColor="{StaticResource LightPrimaryBackground}" 
+                                           FontSize="18" 
+                                           FontAttributes="Bold"
+                                           FontFamily="InterFont"/>
+                                        <Label Text="{Binding Deadline, StringFormat='Meta: {0:dd/MM/yyyy}'}" 
+                                           TextColor="{StaticResource LightSecondaryText}" 
+                                           FontSize="12"/>
+                                    </VerticalStackLayout>
+
+                                    <!-- Cifras -->
+                                    <HorizontalStackLayout Grid.Row="1" Grid.Column="1" Spacing="5" Margin="0,5,0,0">
+                                        <Label Text="{Binding CurrentAmount, StringFormat='{0:C0}'}" 
+                                           TextColor="{StaticResource DarkAccent}" 
+                                           FontAttributes="Bold"/>
+                                        <Label Text="/" TextColor="{StaticResource LightSecondaryText}"/>
+                                        <Label Text="{Binding TargetAmount, StringFormat='{0:C0}'}" 
+                                           TextColor="{StaticResource LightSecondaryText}"/>
+                                    </HorizontalStackLayout>
+
+                                    <!-- Barra de Progreso -->
+                                    <VerticalStackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,10,0,0">
+                                        <ProgressBar Progress="{Binding Progress}" 
+                                                 ProgressColor="{StaticResource DarkAccent}"
+                                                 ScaleY="1.5"/>
+                                        <Label Text="{Binding ProgressText}" 
+                                           TextColor="{StaticResource DarkAccent}" 
+                                           FontSize="10" 
+                                           HorizontalOptions="End"/>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                           </Grid>
+                        </SwipeView>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <!-- Vista Vacía (Empty State) -->
+            <CollectionView.EmptyView>
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                    <Label Text= "🪙" FontSize="50" HorizontalOptions="Center"/>
+                    <Label Text="No hay Ahorros aún" 
+                           TextColor="{StaticResource LightSecondaryText}" 
+                           FontSize="18" 
+                           FontAttributes="Bold"
+                           HorizontalTextAlignment="Center"/>
+                    <Label Text="Define una meta para empezar a llenar tu tesoro." 
+                           TextColor="{StaticResource DarkAccent}" 
+                           HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+
+        <!-- Botón Flotante (FAB) Agregar Meta -->
+        <Button Grid.Row="1"
+                Text="+"
+                Command="{Binding GoToAddGoalCommand}"
+                BackgroundColor="{StaticResource DarkAccent}"
+                TextColor="{StaticResource LightPrimaryText}"
+                FontSize="30"
+                CornerRadius="30"
+                WidthRequest="60"
+                HeightRequest="60"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                Margin="20"
+                Shadow="{Shadow Brush=Black, Offset='5,5', Opacity=0.5}"/>
+    </Grid>
+    
+    
 </ContentPage>

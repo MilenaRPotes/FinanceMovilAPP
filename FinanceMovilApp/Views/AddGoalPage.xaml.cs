@@ -2,9 +2,9 @@ using FinanceMovilApp.ViewModels;
 
 namespace FinanceMovilApp.Views;
 
-public partial class GoalsPage : ContentPage
+public partial class AddGoalPage : ContentPage
 {
-	public GoalsPage(GoalsViewModel viewModel)
+	public AddGoalPage(AddGoalViewModel viewModel)
 	{
 		InitializeComponent();
 		BindingContext = viewModel;

@@ -3,6 +3,10 @@ using FinanceMovilApp.Services;
 using FinanceMovilApp.ViewModels;
 using FinanceMovilApp.Views;
 using CommunityToolkit.Maui;
+using SkiaSharp.Extended.UI;
+using SkiaSharp.Views.Maui.Controls.Hosting;
+
+
 
 namespace FinanceMovilApp
 {
@@ -13,7 +17,10 @@ namespace FinanceMovilApp
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseSkiaSharp()
                 .UseMauiCommunityToolkit()
+
+
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -36,6 +43,14 @@ namespace FinanceMovilApp
             //--- 3. Dashboard Page and ViewModel ---
             builder.Services.AddTransient<DashboardPage>();
             builder.Services.AddTransient<DashboardViewModel>();
+
+
+            //--- 4. Goals Page and ViewModel ---
+            builder.Services.AddTransient<GoalsPage>();
+            builder.Services.AddTransient<GoalsViewModel>(); // ViewModel Principal
+            builder.Services.AddTransient<AddGoalPage>();    // Vista Formulario
+            builder.Services.AddTransient<AddGoalViewModel>(); // ViewModel Formulario
+
             return builder.Build();
         }
     }

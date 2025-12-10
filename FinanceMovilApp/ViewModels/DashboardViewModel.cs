@@ -35,32 +35,32 @@ namespace FinanceMovilApp.ViewModels
 
         //Metodo para cargar datos se llama cada vez que la pantalla aparece
         [RelayCommand]
-        public async Task LoadData() 
+        public async Task LoadData()
         {
 
             // Evitar cargas concurrentes
             if (IsBusy) return;
             IsBusy = true;
 
-            try 
+            try
             {
                 // 1. Calcular la Fortaleza Financiera (Saldo total de todo el historial)
                 FinancialStrength = await _dbService.GetTotalBalanceAsync();
                 FinancialStrengthText = $"{FinancialStrength:C0}"; // Formato de moneda local
-                
+
                 // 2. Obtener las 5 transacciones más recientes
                 var recentTransactions = await _dbService.GetRecentTransactionsAsync(5);
 
                 Transactions.Clear();
-                foreach (var transaction in recentTransactions) 
-                { 
+                foreach (var transaction in recentTransactions)
+                {
                     Transactions.Add(transaction);
                 }
 
             }
-            finally 
-            { 
-                IsBusy = false; 
+            finally
+            {
+                IsBusy = false;
             }
         }
 
@@ -71,6 +71,36 @@ namespace FinanceMovilApp.ViewModels
             await Shell.Current.GoToAsync("AddTransactionPage");
         }
 
+        //-- Eliminar y Editar transaciones --
 
+        [RelayCommand]
+        private async Task DeleteTransaction(TransactionModel transaction)
+        {
+            if (transaction == null) return;
+
+            bool confirm = await App.Current.MainPage.DisplayAlert(
+                "Eliminar",
+                 $"¿Borrar {transaction.Description} de {transaction.Amount:C0}?",
+                 "Sí, borrar", "Cancelar");
+
+            if (confirm)
+            {
+                await _dbService.DeleteTransactionAsync(transaction);
+                await LoadData(); // Recargar datos después de eliminar (saldo y lista)
+
+            }
+        }
+
+        [RelayCommand]
+        private async Task EditTransaction(TransactionModel transaction)
+        {
+            if (transaction == null) return;
+            // Navegar a la página de edición, pasando la transacción como parámetro
+            var navParam = new Dictionary<string, object>
+            {
+                { "TransactionToEdit", transaction }
+            };
+            await Shell.Current.GoToAsync(nameof(Views.AddTransactionPage), navParam);
+        }
     }
 }

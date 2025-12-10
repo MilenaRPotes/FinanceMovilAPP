@@ -11,9 +11,12 @@ using System.Threading.Tasks;
 
 namespace FinanceMovilApp.ViewModels
 {
+    //Permite recibir una transaccion para editar 
+    [QueryProperty(nameof(TransactionToEdit), "TransactionToEdit")]
     public partial class AddTransactionViewModel : BaseViewModel
     {
         private readonly LocalDbService _dbService;
+        private int _transactionId = 0; // 0 = Nueva, >0 = Editar
 
         // Binding properties for the transaction details
         [ObservableProperty]
@@ -52,6 +55,33 @@ namespace FinanceMovilApp.ViewModels
         [ObservableProperty]
         private string selectedFrequency;
 
+        //Propiedad para recibir la transaccion a editar 
+        public TransactionModel TransactionToEdit
+        {
+            set 
+            {
+                if (value != null) 
+                {
+                    _transactionId = value.Id;
+                    Amount = value.Amount;
+                    Description = value.Description;
+                    Date = value.Date;
+                    IsIncome = value.IsIncome;
+                    IsRecurring = value.IsRecurring;
+                    SelectedCategory = value.CategoryName;
+
+                    if (value.IsRecurring) 
+                    { 
+                        SelectedFrequency = value.Frequency.ToString();
+                    }
+                    
+                    Title = "Editar Transacción";
+                    UpdateCategories();
+
+                }
+            }
+        }
+
         // Calculated property for the UI label
         public string TransactionTypeLabel => IsIncome ? "Ingreso" : "Gasto";
 
@@ -67,12 +97,14 @@ namespace FinanceMovilApp.ViewModels
         //Metodo para limpiar el formulario
         private void ClearForm()
         {
+            _transactionId = 0;
             Amount = 0;
             Description = string.Empty;
             Date = DateTime.Now;
             IsIncome = false;
             IsRecurring = false;
             SelectedFrequency = PaymentFrequency.None.ToString();
+            Title = "Nueva Transacción";
         }
 
         private void UpdateCategories()
@@ -104,8 +136,12 @@ namespace FinanceMovilApp.ViewModels
                     "Otros Gastos"
                 };
             }
-            // Seleccionar la primera categoría por defecto
-            SelectedCategory = Categories.FirstOrDefault();
+
+            // Solo resetear si no estamos editando o si la categoría actual no está en la lista nueva
+            if (string.IsNullOrEmpty(SelectedCategory) || !Categories.Contains(SelectedCategory))
+            {
+                SelectedCategory = Categories.FirstOrDefault();
+            }
         }
 
 
@@ -118,6 +154,12 @@ namespace FinanceMovilApp.ViewModels
                 return;
             }
 
+            if (string.IsNullOrEmpty(SelectedCategory))
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "Debes seleccionar una categoría", "OK");
+                return;
+            }
+
             //Convertir el string seleccionado del Picker al Enum correspondiente
             PaymentFrequency freEnum = PaymentFrequency.None;
             if (IsRecurring && !string.IsNullOrEmpty(SelectedFrequency)) 
@@ -126,7 +168,8 @@ namespace FinanceMovilApp.ViewModels
             }
 
             var newTransaction = new TransactionModel
-            {
+            {   
+                Id=_transactionId, // Mantener el Id para edición
                 Amount = this.Amount,
                 Description = this.Description,
                 Date = this.Date,
@@ -138,9 +181,19 @@ namespace FinanceMovilApp.ViewModels
             };
 
             await _dbService.SaveTransactionAsync(newTransaction);
-            await App.Current.MainPage.DisplayAlert("¡Hecho!", "Transacción guardada correctamente.", "OK");
-            //Limpiar el formulario después de guardar
-            ClearForm();
+            // si es edicion , volver atras. si es nueva se sigue agregando.
+            if (_transactionId != 0) 
+            {
+                await App.Current.MainPage.DisplayAlert("Actualizado", "El movimiento ha sido corregido.", "OK");
+                await Shell.Current.GoToAsync("..");
+            }
+            else 
+            {
+                await App.Current.MainPage.DisplayAlert("¡Hecho!", "Transacción registrada correctamente.", "OK");
+                //Limpiar el formulario después de guardar
+                ClearForm();
+            }
+                
         }
 
     }

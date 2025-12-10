@@ -47,9 +47,9 @@
             </HorizontalStackLayout>
 
             <!--Amount Entry -->
-            <Frame BackgroundColor="{StaticResource DarkSecondaryBackground}" BorderColor="Transparent" CornerRadius="10" >
+            <Frame BackgroundColor="{StaticResource DarkSecondaryBackground}" BorderColor="{StaticResource DarkAccent}" CornerRadius="10" >
                 <VerticalStackLayout>
-                    <Label Text="MONTO" TextColor="{StaticResource LightSecondaryText}" FontSize="12"  FontFamily="InterFont"></Label>
+                    <Label Text="MONTO" TextColor="{StaticResource LightSecondaryText}" FontSize="12" FontAttributes="Bold"  FontFamily="InterFont"></Label>
                     <Entry Text="{Binding Amount}" 
                            Keyboard="Numeric" 
                            TextColor="{StaticResource DarkAccent}"
@@ -63,7 +63,7 @@
             <!--Selector Categories se llena automaticamente si es Ingreso o Gasto -->
             <Frame BackgroundColor="{StaticResource DarkSecondaryBackground}" BorderColor="Transparent" CornerRadius="10" >
                 <VerticalStackLayout>
-                    <Label Text="CATEGORÍA" TextColor="{StaticResource LightSecondaryText}" FontSize="12"></Label>
+                    <Label Text="CATEGORÍA" TextColor="{StaticResource LightSecondaryText}"  FontAttributes="Bold" FontSize="12"></Label>
                     <Picker ItemsSource="{Binding Categories}"
                             SelectedItem="{Binding SelectedCategory}"
                             TextColor="{StaticResource DarkPrimaryText}"
@@ -76,7 +76,7 @@
             <!--Description Entry-->
             <Frame BackgroundColor="{StaticResource DarkSecondaryBackground}" BorderColor="Transparent" CornerRadius="10" >
                 <VerticalStackLayout>
-                    <Label Text="DESCRIPCIÓN" TextColor="{StaticResource LightSecondaryText}" FontSize="12"></Label>
+                    <Label Text="DESCRIPCIÓN" TextColor="{StaticResource LightSecondaryText}" FontAttributes="Bold" FontSize="12"></Label>
                     <Entry Text="{Binding Description}" 
                            TextColor="{StaticResource DarkPrimaryText}"
                            FontSize="18"
@@ -88,7 +88,7 @@
             <!--Date Picker-->
             <Frame BackgroundColor="{StaticResource DarkSecondaryBackground}" BorderColor="Transparent" CornerRadius="10" >
                 <VerticalStackLayout>
-                    <Label Text="FECHA" TextColor="{StaticResource LightSecondaryText}" FontSize="12"></Label>
+                    <Label Text="FECHA" TextColor="{StaticResource LightSecondaryText}" FontAttributes="Bold" FontSize="12"></Label>
                     <DatePicker Date="{Binding Date}" 
                             TextColor="{StaticResource DarkPrimaryText}"/>
                 </VerticalStackLayout>
@@ -105,11 +105,11 @@
                 Solo visible si IsRecurring ES TRUE
             -->
                 <Frame BackgroundColor="{StaticResource DarkSecondaryBackground}"
-                       BorderColor="{StaticResource DarkAccent}"
+                       BorderColor="{StaticResource LightSecondaryText}"
                        CornerRadius="10"
                        IsVisible="{Binding IsRecurring}">
                     <VerticalStackLayout>
-                        <Label Text="Frecuencia del pago:" TextColor="{StaticResource LightSecondaryText}" FontSize="12"></Label>
+                        <Label Text="Frecuencia del pago:" TextColor="{StaticResource LightSecondaryText}" FontAttributes="Bold" FontSize="12"></Label>
                         <Picker ItemsSource="{Binding  Frequencies}"
                                 SelectedItem="{Binding  SelectedFrequency}"
                                 TextColor="{StaticResource DarkPrimaryText}"

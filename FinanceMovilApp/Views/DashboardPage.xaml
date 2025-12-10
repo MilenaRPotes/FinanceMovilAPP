@@ -51,55 +51,100 @@
             <CollectionView Grid.Row="1" ItemsSource="{Binding Transactions}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:TransactionModel">
-                        <Frame Margin="0,5" 
+                        <Grid Padding="0,0,0,15">
+                        <!-- SwipeView para deslizar -->
+                        <SwipeView Threshold="100">
+                            <!--Deslizar Izquierda: Eliminar-->
+                            <SwipeView.RightItems>
+                                <SwipeItems >
+                                    <SwipeItem 
+                                        Text="Eliminar" 
+                                        BackgroundColor="{StaticResource RojoCoral}" 
+                                        IconImageSource="delete.png"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:DashboardViewModel}}, Path=DeleteTransactionCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <!--Deslizar Derecha: EDITAR-->
+                            <SwipeView.LeftItems>
+                                <SwipeItems >
+                                    <SwipeItem 
+                                        Text="Editar" 
+                                        BackgroundColor="{StaticResource LightSecondaryText}" 
+                                        IconImageSource="edit.png"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:DashboardViewModel}}, Path=EditTransactionCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+
+                                <Grid Padding="2,0">
+                                    <!--Contenido Original de la Tarjeta  -->
+                            <Frame Margin="0,5" 
                                Padding="15" 
                                BackgroundColor="{StaticResource DarkSecondaryBackground}" 
                                BorderColor="Transparent"
                                CornerRadius="15">
-                            <Grid ColumnDefinitions="Auto, *, Auto">
-                                <!-- Icono (Placeholder) -->
-                                <Image Grid.Column="0" 
+                                <Grid ColumnDefinitions="Auto, *, Auto">
+                                    <!-- Icono (Placeholder) -->
+                                    <Image Grid.Column="0" 
                                        Source="paid.png" 
                                        HeightRequest="30" 
                                        WidthRequest="30"
                                        Aspect="AspectFit"
                                        Margin="0,0,15,0"/>
 
-                                <!-- Descripción y Fecha -->
-                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                                    <Label Text="{Binding Description}" 
+                                    <!-- Descripción y Fecha -->
+                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                        <Label Text="{Binding Description}" 
                                            TextColor="{StaticResource LightPrimaryBackground}" 
                                            FontAttributes="Bold"
                                            FontSize="16"/>
-                                    <Label Text="{Binding CategoryName}" 
+                                        <Label Text="{Binding CategoryName}" 
                                            TextColor="{StaticResource LightSecondaryText}" 
                                            FontSize="12"/>
-                                </VerticalStackLayout>
+                                    </VerticalStackLayout>
 
-                                <!-- Monto (Verde si ingreso, Rojo si gasto) -->
-                                <Label Grid.Column="2" 
+                                    <!-- Monto (Verde si ingreso, Rojo si gasto) -->
+                                    <Label Grid.Column="2" 
                                        Text="{Binding Amount, StringFormat='{0:C0}'}"
                                        FontSize="16"
                                        FontAttributes="Bold"
                                        VerticalOptions="Center">
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding IsIncome}" Value="True">
-                                            <Setter Property="TextColor" Value="{StaticResource VerdeCrecimiento}"/>
-                                        </DataTrigger>
-                                        <DataTrigger TargetType="Label" Binding="{Binding IsIncome}" Value="False">
-                                            <Setter Property="TextColor" Value="{StaticResource RojoCoral}"/>
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                </Label>
-                            </Grid>
-                        </Frame>
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding IsIncome}" Value="True">
+                                                <Setter Property="TextColor" Value="{StaticResource VerdeCrecimiento}"/>
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding IsIncome}" Value="False">
+                                                <Setter Property="TextColor" Value="{StaticResource RojoCoral}"/>
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                </Grid>
+                            </Frame>
+                                </Grid>
+                            </SwipeView>
+                        </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
+
+                <!--  Footer (Espacio vacío) para que la última card suba -->
+                <CollectionView.Footer>
+                    <BoxView HeightRequest="100" Color="Transparent" />
+                </CollectionView.Footer>
+                
                 <!-- Vista vacía por si no hay datos -->
                 <CollectionView.EmptyView>
-                    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                        <Label Text="No hay movimientos aún." TextColor="{StaticResource LightSecondaryText}"/>
-                        <Label Text="¡Empieza tu imperio hoy!" TextColor="{StaticResource DarkAccent}"/>
+                    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                        <Label Text= "📜" FontSize="50" HorizontalOptions="Center"/>
+                        <Label Text="No hay movimientos aún." 
+                               TextColor="{StaticResource LightSecondaryText}" 
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="¡Empieza tu imperio hoy!" 
+                               TextColor="{StaticResource DarkAccent}" 
+                               HorizontalTextAlignment="Center"/>
                     </VerticalStackLayout>
                 </CollectionView.EmptyView>
             </CollectionView>

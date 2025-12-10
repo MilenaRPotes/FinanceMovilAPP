@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FinanceMovilApp.Views.AddGoalPage"
+             Title="Nueva Meta"
+             BackgroundColor="{StaticResource DarkPrimaryBackground}">
+
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="25" Padding="25">
+            <!--Titulo-->
+            <Label Text="ESTABLECE TU META "
+                   Style="{StaticResource TituloPrincipal}"
+                   Margin="0,0,0,10"/>
+
+            <!--Nombre de la Meta-->
+            <Label Text="Ponle nombre y cifra a tu sueño "
+                   TextColor="{StaticResource LightSecondaryText}"
+                   FontSize="14"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   Margin="0,0,0,20">
+            </Label>
+
+            <!--Entrada de Nombre de Meta -->
+            <Frame BackgroundColor="{StaticResource DarkSecondaryBackground}" BorderColor="Transparent" CornerRadius="10">
+                <VerticalStackLayout> 
+                    <Label Text="NOMBRE META" 
+                           TextColor="{StaticResource LightSecondaryText}"
+                           FontFamily="InterFont"
+                           FontSize="12"
+                           FontAttributes="Bold"
+                           />
+                <Entry Text="{Binding Name}" 
+                           TextColor="{StaticResource DarkPrimaryText}"
+                           FontFamily="InterFont"
+                           FontSize="18"
+                           Placeholder="Viaje"
+                           PlaceholderColor="{StaticResource  LightSecondaryText}"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!--Entrada de Cifra de Meta -->
+            <Frame BackgroundColor="{StaticResource DarkSecondaryBackground}" BorderColor="{StaticResource DarkAccent}" CornerRadius="10">
+                <VerticalStackLayout>
+                    <Label Text="MONTO OBJETIVO" TextColor="{StaticResource LightSecondaryText}"  FontSize="12" FontFamily="InterFont" FontAttributes="Bold"/>
+                    <Entry Text="{Binding TargetAmount}" 
+                           Keyboard="Numeric" 
+                           TextColor="{StaticResource DarkAccent}"
+                           FontSize="28"
+                           FontAttributes="Bold"
+                           FontFamily="InterFont"
+                           Placeholder="0.00"
+                           PlaceholderColor="{StaticResource LightSecondaryText}"/>
+                </VerticalStackLayout>
+            </Frame>
+            
+            <!--Entrada Fecha Limite-->
+            <Frame BackgroundColor="{StaticResource DarkSecondaryBackground}" BorderColor="Transparent" CornerRadius="10">
+                <VerticalStackLayout>
+                    <Label Text="FECHA LÍMITE" TextColor="{StaticResource  LightSecondaryText}" FontSize="12" FontAttributes="Bold" FontFamily="InterFont"/>
+                    <DatePicker Date="{Binding Deadline}" 
+                                MinimumDate="{Binding MinDate}"
+                                TextColor="{StaticResource DarkPrimaryText}"
+                                FontAttributes="Bold"
+                                FontFamily="InterFont"
+                                
+                               />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Mensaje Motivacional (Estático por ahora) -->
+            <Frame BackgroundColor="Transparent" BorderColor="{StaticResource LightSecondaryText}" CornerRadius="10" HasShadow="False">
+
+                <Grid ColumnDefinitions="Auto, *" ColumnSpacing="15" VerticalOptions="Center">
+                    <Label Grid.Column="0" Text="💡" FontSize="24" VerticalOptions="Center"/>
+
+                    <Label Grid.Column="1"
+                           Text="Una parte de todo lo que ganas es tuyo para guardar."
+                           TextColor="{StaticResource LightSecondaryText}"
+                           FontSize="12"
+                           FontAttributes="Italic"
+                           VerticalOptions="Center"
+                           LineBreakMode="WordWrap"/>
+                </Grid>
+            </Frame>
+
+            <!-- Botón Guardar -->
+            <Button Text="CREAR META" 
+                    Command="{Binding SaveCommand}"
+                    Style="{StaticResource BotonPrimario}"
+                    Margin="0,20,0,0"/>
+        </VerticalStackLayout>
+    </ScrollView>
+   
+</ContentPage>
