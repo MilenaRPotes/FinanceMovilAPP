@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FinanceMovilApp.Views.SetBudgetPage"
+             Title="Asignar Presupuesto"
+             BackgroundColor="{StaticResource DarkPrimaryBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="25" Padding="25">
+
+            <!-- Contexto: Ingresos del Mes -->
+            <Frame BackgroundColor="{StaticResource DarkSecondaryBackground}" BorderColor="Transparent" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="INGRESO MENSUAL BASE" TextColor="{StaticResource LightSecondaryText}" FontSize="12" HorizontalOptions="Center"/>
+                    <Label Text="{Binding MonthlyIncome, StringFormat='{0:C0}'}" 
+                           TextColor="{StaticResource VerdeCrecimiento}" 
+                           FontSize="24" 
+                           FontAttributes="Bold" 
+                           HorizontalOptions="Center"/>
+                    <Label Text="Define cuánto de este dinero irá a cada categoría." 
+                           TextColor="{StaticResource LightSecondaryText}" 
+                           FontSize="12" 
+                           HorizontalOptions="Center" 
+                           HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Selector de Categoría -->
+            <Frame BackgroundColor="{StaticResource DarkSecondaryBackground}" BorderColor="Transparent" CornerRadius="10">
+                <VerticalStackLayout>
+                    <Label Text="CATEGORÍA" TextColor="{StaticResource LightSecondaryText}" FontSize="12" FontFamily="InterFont"/>
+                    <Picker ItemsSource="{Binding Categories}"
+                            SelectedItem="{Binding SelectedCategory}"
+                            TextColor="{StaticResource DarkPrimaryText}"
+                            Title="Selecciona una categoría"
+                            TitleColor="{StaticResource LightSecondaryText}"
+                            FontFamily="InterFont"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Slider de Porcentaje -->
+            <VerticalStackLayout Spacing="10">
+                <Grid ColumnDefinitions="*, Auto">
+                    <Label Text="ASIGNACIÓN (%)" TextColor="{StaticResource LightSecondaryText}" FontSize="12" VerticalOptions="Center"/>
+                    <Label Grid.Column="1" Text="{Binding Percentage, StringFormat='{0:F1}%'}" TextColor="{StaticResource DarkAccent}" FontAttributes="Bold" FontSize="16"/>
+                </Grid>
+                <Slider Value="{Binding Percentage}" 
+                        Minimum="0" 
+                        Maximum="100" 
+                        MinimumTrackColor="{StaticResource DarkAccent}" 
+                        MaximumTrackColor="{StaticResource LightSecondaryText}" 
+                        ThumbColor="{StaticResource DarkPrimaryText}"/>
+            </VerticalStackLayout>
+
+            <!-- Campo Monto (Se calcula solo o se edita manual) -->
+            <Frame BackgroundColor="{StaticResource DarkSecondaryBackground}" BorderColor="{StaticResource DarkAccent}" CornerRadius="10">
+                <VerticalStackLayout>
+                    <Label Text="MONTO A GASTAR" TextColor="{StaticResource LightSecondaryText}" FontSize="12" FontFamily="InterFont" FontAttributes="Bold"/>
+                    <Entry Text="{Binding Amount}" 
+                           Keyboard="Numeric" 
+                           TextColor="{StaticResource DarkAccent}"
+                           FontSize="28"
+                           FontAttributes="Bold"
+                           FontFamily="InterFont"
+                           Placeholder="0.00"
+                           PlaceholderColor="{StaticResource LightSecondaryText}"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Mensaje Motivacional  -->
+            <Frame BackgroundColor="Transparent" BorderColor="{StaticResource LightSecondaryText}" CornerRadius="10" HasShadow="False">
+
+                <Grid ColumnDefinitions="Auto, *" ColumnSpacing="15" VerticalOptions="Center">
+                    <Label Grid.Column="0" Text="💡" FontSize="24" VerticalOptions="Center"/>
+
+                    <Label Grid.Column="1"
+                           Text="Asigna una misión a cada moneda. Quien planea, vive tranquilo."
+                           TextColor="{StaticResource LightSecondaryText}"
+                           FontSize="12"
+                           FontAttributes="Italic"
+                           VerticalOptions="Center"
+                           LineBreakMode="WordWrap"/>   
+                </Grid>
+            </Frame>
+
+
+            <!-- Botón Guardar -->
+            <Button Text="GUARDAR PRESUPUESTO" 
+                    Command="{Binding SaveCommand}"
+                    Style="{StaticResource BotonPrimario}"
+                    Margin="0,20,0,0"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

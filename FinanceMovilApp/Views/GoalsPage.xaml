@@ -23,7 +23,7 @@
                HasShadow="True"
                >
             <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
-                <Label Text="TU REINO FINANCIERO" 
+                <Label Text="TU TESORO PERSONAL" 
                        TextColor="{StaticResource DarkAccent}" 
                        FontFamily="LoraFont"
                        FontSize="18"
@@ -79,7 +79,7 @@
                             </SwipeView.LeftItems>
 
 
-                            <Grid Padding="20,0">
+                            <Grid Padding="2,0">
                                 <!-- CONTENIDO PRINCIPAL DE LA TARJETA -->
                             <Frame BackgroundColor="{StaticResource DarkSecondaryBackground}" 
                                BorderColor="{Binding IsCompleted, Converter={toolkit:BoolToObjectConverter TrueObject={StaticResource VerdeCrecimiento}, FalseObject=Transparent}}"
@@ -130,20 +130,24 @@
                                     </VerticalStackLayout>
 
                                     <!-- Cifras -->
-                                    <HorizontalStackLayout Grid.Row="1" Grid.Column="1" Spacing="5" Margin="0,5,0,0">
-                                        <Label Text="{Binding CurrentAmount, StringFormat='{0:C0}'}" 
-                                           TextColor="{StaticResource DarkAccent}" 
-                                           FontAttributes="Bold"/>
-                                        <Label Text="/" TextColor="{StaticResource LightSecondaryText}"/>
-                                        <Label Text="{Binding TargetAmount, StringFormat='{0:C0}'}" 
-                                           TextColor="{StaticResource LightSecondaryText}"/>
-                                    </HorizontalStackLayout>
+                                        <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="0" Margin="0,5,0,0">
 
-                                    <!-- Barra de Progreso -->
+                                            <Label  Text="{Binding CurrentAmount, StringFormat='{0:C0}'}" 
+                                                    TextColor="{StaticResource DarkAccent}" 
+                                                    FontAttributes="Bold"
+                                                    FontSize="16"
+                                                    LineBreakMode="TailTruncation"/>
+                                                                <Label Text="{Binding TargetAmount, StringFormat='de {0:C0}'}" 
+                                                    TextColor="{StaticResource LightSecondaryText}"
+                                                    FontSize="12"
+                                                    LineBreakMode="TailTruncation"/>   
+                                        </VerticalStackLayout>
+
+                                        <!-- Barra de Progreso -->
                                     <VerticalStackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,10,0,0">
                                         <ProgressBar Progress="{Binding Progress}" 
                                                  ProgressColor="{StaticResource DarkAccent}"
-                                                 ScaleY="1.5"/>
+                                                 ScaleY="2"/>
                                         <Label Text="{Binding ProgressText}" 
                                            TextColor="{StaticResource DarkAccent}" 
                                            FontSize="10" 

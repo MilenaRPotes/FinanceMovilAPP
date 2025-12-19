@@ -51,6 +51,11 @@ namespace FinanceMovilApp
             builder.Services.AddTransient<AddGoalPage>();    // Vista Formulario
             builder.Services.AddTransient<AddGoalViewModel>(); // ViewModel Formulario
 
+            // --- 5. Budget Page and ViewModel ---
+            builder.Services.AddTransient<BudgetPage>();
+            builder.Services.AddTransient<BudgetViewModel>();
+            builder.Services.AddTransient<SetBudgetPage>();
+            builder.Services.AddTransient<SetBudgetViewModel>();
             return builder.Build();
         }
     }

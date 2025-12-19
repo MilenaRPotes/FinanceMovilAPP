@@ -12,6 +12,8 @@ namespace FinanceMovilApp
             Routing.RegisterRoute(nameof(AddTransactionPage), typeof(AddTransactionPage));
 
             Routing.RegisterRoute(nameof(AddGoalPage), typeof(AddGoalPage));
+
+            Routing.RegisterRoute(nameof(SetBudgetPage), typeof(SetBudgetPage));
         }
     }
 }

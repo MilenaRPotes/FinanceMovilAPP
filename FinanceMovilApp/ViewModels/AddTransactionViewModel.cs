@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FinanceMovilApp.Helpers;
 
 namespace FinanceMovilApp.ViewModels
 {
@@ -109,32 +110,15 @@ namespace FinanceMovilApp.ViewModels
 
         private void UpdateCategories()
         {
-            //Aqui se pueden agregar categorias segun si es ingreso o gasto
-       
+            //se alimenta de las listas estaticas del helper
+
             if (IsIncome)
             {
-                Categories = new ObservableCollection<string>
-                {
-                    "Salario",
-                    "Negocio/Ventas",
-                    "Inversiones",
-                    "Regalos",
-                    "Otros Ingresos"
-                };
+                Categories = new ObservableCollection<string>(CategoryHelper.IncomeCategories);
             }
             else
             {
-                Categories = new ObservableCollection<string>
-                {
-                    "Vivienda",
-                    "Alimentación",
-                    "Transporte",
-                    "Salud",
-                    "Educación",
-                    "Ocio",
-                    "Pago de Deudas",
-                    "Otros Gastos"
-                };
+                Categories = new ObservableCollection<string>(CategoryHelper.ExpenseCategories);
             }
 
             // Solo resetear si no estamos editando o si la categoría actual no está en la lista nueva

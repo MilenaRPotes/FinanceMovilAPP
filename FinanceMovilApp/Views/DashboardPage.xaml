@@ -137,7 +137,7 @@
                 <CollectionView.EmptyView>
                     <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
                         <Label Text= "📜" FontSize="50" HorizontalOptions="Center"/>
-                        <Label Text="No hay movimientos aún." 
+                        <Label Text="No hay movimientos aún" 
                                TextColor="{StaticResource LightSecondaryText}" 
                                FontSize="18"
                                FontAttributes="Bold"
