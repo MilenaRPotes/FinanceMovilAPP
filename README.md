@@ -14,7 +14,9 @@ Designed to provide a seamless mobile experience, helping users manage their fin
 ## 🌟 Key Features
 
 ✅ Multi-platform: Built for Android and iOS using a single C# codebase.
+
 📊 Real-time Dashboard: Instant summaries of balance, income, and expenses.
+
 🎯 Financial Goals: Set and track specific savings targets (Metas).
 💰 Budget Management: Control your monthly spending limits (Presupuesto).
 🧠 Financial Mindset: Dedicated section for developing healthy money habits (Mentalidad).
