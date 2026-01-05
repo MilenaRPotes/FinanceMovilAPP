@@ -1,6 +1,6 @@
 
 ## 🚧 This project is currently in development.  
-👉 You can view the latest version in the [`main branch`](https://github.com/MilenaRPotes/FinanceMovilAPP/tree/main)
+👉 You can view the latest version in the [`main branch`](https://github.com/MilenaRPotes/FinanceMovilAPP/tree/main/FinanceMovilApp)
 
 
 ---
