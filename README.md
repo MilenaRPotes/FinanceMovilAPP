@@ -38,16 +38,13 @@ Designed to provide a seamless mobile experience, helping users manage their fin
 - 👨‍💻 C# + .NET MAUI (Multi-platform App UI)
 - 📐 MVVM Design Pattern for clean separation of concerns
 - 🧩 SQLite local database with sqlite-net-pcl for mobile persistence
+- 🔄 Full CRUD: Seamlessly create, read, update, and delete financial records.
 - 🎨 XAML + Resource Dictionaries for a consistent look across platforms
 ---
 
 ## 🗃️ Database
 
 This mobile project utilizes a local SQLite database powered by sqlite-net-pcl to ensure fast, lightweight, and efficient data handling on mobile devices.
-
-## 📱 Lightweight & Serverless: Highly optimized for mobile resource management without the overhead of heavy ORMs.
-- 🧠 Attribute-Based Mapping: Maps C# models directly to local storage using native attributes.
-- 🔄 Full CRUD: Seamlessly create, read, update, and delete financial records.
 
 ## 📂 Version
 This is the Mobile Edition (v1-Alpha) of the Money Tracker ecosystem.
