@@ -1,67 +1,55 @@
 ##📱 Money Tracker Mobile (MAUI)
 
 ## 🚧 This project is currently in development.  
-👉 You can view the latest version in the [`developer branch`](https://github.com/MilenaRPotes/FinanceMovilAPP/tree/main)
+👉 You can view the latest version in the [`main branch`](https://github.com/MilenaRPotes/FinanceMovilAPP/tree/main)
 
 
 ---
 ## 🧾 Overview
 
-**Money Tracker** is a personal finance management application built with **WPF in C#** using the **MVVM architectural pattern**.  
-Designed to improve financial awareness and help users track their money with clarity and ease.
-
+**Money Tracker Mobile ** is a cross-platform personal finance management application built with .NET MAUI in C# using the MVVM architectural pattern.
+Designed to provide a seamless mobile experience, helping users manage their finances, set goals, and improve their financial mindset on the go.
 ---
 
-## 🌟 Features
+## 🌟 Key Features
 
-✅ Register and categorize incomes and expenses  
-📊 Real-time dashboard with balance, income, and expense summaries  
-📅 Monthly breakdown and activity logs  
-📈 Interactive charts powered by LiveCharts2  
-💬 Custom dialogs and a responsive user interface  
-🧭 Sidebar menu with smooth navigation  
+✅ Multi-platform: Built for Android and iOS using a single C# codebase.
+📊 Real-time Dashboard: Instant summaries of balance, income, and expenses.
+🎯 Financial Goals: Set and track specific savings targets (Metas).
+💰 Budget Management: Control your monthly spending limits (Presupuesto).
+🧠 Financial Mindset: Dedicated section for developing healthy money habits (Mentalidad).
+📈 Interactive Charts: Visual data representation powered by LiveCharts2.
+📱 Modern UI: Responsive design with fluid navigation and custom XAML styling.
 
 ---
 
 ## 🛠 How It Works
 
-1️⃣ Add new income and expenses  
-2️⃣ Browse through monthly activity  
-3️⃣ Analyze financial trends with charts  
-4️⃣ Get instant balance insights  
-5️⃣ Navigate easily through the sidebar menu
-
+1️⃣ Track Transactions: Quickly log your daily income and expenses.
+2️⃣ Set Goals: Define financial milestones and monitor your progress.
+3️⃣ Control Budgets: Assign limits to categories to avoid overspending.
+4️⃣ Analyze Trends: Use interactive charts to understand your financial behavior.
+5️⃣ Cultivate Habits: Explore the Mindset section to stay focused on your financial health.
 ---
 
 ## 🖥️ Technologies
 
-- 👨‍💻 C# + WPF  
-- 📐 MVVM Design Pattern
-- 🧩 SQLite local database with EF Core
-- 📦 Data access via LINQ and models
-- 📊 [LiveCharts2](https://livecharts.dev)  
-- 🪟 Custom Dialogs with XAML  
-- 🌈 Gradient UI with resource dictionaries
-
+- 👨‍💻 C# + .NET MAUI (Multi-platform App UI)
+- 📐 MVVM Design Pattern for clean separation of concerns
+- 🧩 SQLite local database with sqlite-net-pcl for mobile persistence
+- 🎨 XAML + Resource Dictionaries for a consistent look across platforms
 ---
 
-## 🗃️ Database
-This project uses a local SQLite database powered by Entity Framework Core (EF Core) for structured, type-safe data access.
+##🗃️ Database
 
-- 🧱 Lightweight, serverless relational database (SQLite)
+This mobile project utilizes a local SQLite database powered by sqlite-net-pcl to ensure fast, lightweight, and efficient data handling on mobile devices.
 
-- 🧠 EF Core handles database mapping through C# models
-
-- 💾 Local .db file automatically created alongside the app
-
-- 🔄 Supports adding, updating, deleting, and querying financial records
-
-- 📦 All data is persisted using LINQ and EF Core methods
+##📱 Lightweight & Serverless: Highly optimized for mobile resource management without the overhead of heavy ORMs.
+🧠 Attribute-Based Mapping: Maps C# models directly to local storage using native attributes.
+🔄 Full CRUD: Seamlessly create, read, update, and delete financial records.
 
 ## 📂 Version
-
-This is **v1** of the Money Tracker App. More features and improvements are planned for future releases 🚀
-
+This is the Mobile Edition (v1-Alpha) of the Money Tracker ecosystem.
 ---
 
 ## 📸 Preview
