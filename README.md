@@ -1,4 +1,3 @@
-##📱 Money Tracker Mobile (MAUI)
 
 ## 🚧 This project is currently in development.  
 👉 You can view the latest version in the [`main branch`](https://github.com/MilenaRPotes/FinanceMovilAPP/tree/main)
@@ -7,7 +6,7 @@
 ---
 ## 🧾 Overview
 
-**Money Tracker Mobile** is a cross-platform personal finance management application built with .NET MAUI in C# using the MVVM architectural pattern.
+**Money Tracker Mobile (MAUI)** is a cross-platform personal finance management application built with .NET MAUI in C# using the MVVM architectural pattern.
 Designed to provide a seamless mobile experience, helping users manage their finances, set goals, and improve their financial mindset on the go.
 
 ---
@@ -42,11 +41,11 @@ Designed to provide a seamless mobile experience, helping users manage their fin
 - 🎨 XAML + Resource Dictionaries for a consistent look across platforms
 ---
 
-##🗃️ Database
+## 🗃️ Database
 
 This mobile project utilizes a local SQLite database powered by sqlite-net-pcl to ensure fast, lightweight, and efficient data handling on mobile devices.
 
-##📱 Lightweight & Serverless: Highly optimized for mobile resource management without the overhead of heavy ORMs.
+## 📱 Lightweight & Serverless: Highly optimized for mobile resource management without the overhead of heavy ORMs.
 🧠 Attribute-Based Mapping: Maps C# models directly to local storage using native attributes.
 🔄 Full CRUD: Seamlessly create, read, update, and delete financial records.
 
