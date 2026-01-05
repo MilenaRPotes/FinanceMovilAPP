@@ -7,8 +7,9 @@
 ---
 ## 🧾 Overview
 
-**Money Tracker Mobile ** is a cross-platform personal finance management application built with .NET MAUI in C# using the MVVM architectural pattern.
+**Money Tracker Mobile** is a cross-platform personal finance management application built with .NET MAUI in C# using the MVVM architectural pattern.
 Designed to provide a seamless mobile experience, helping users manage their finances, set goals, and improve their financial mindset on the go.
+
 ---
 
 ## 🌟 Key Features
@@ -30,6 +31,7 @@ Designed to provide a seamless mobile experience, helping users manage their fin
 3️⃣ Control Budgets: Assign limits to categories to avoid overspending.
 4️⃣ Analyze Trends: Use interactive charts to understand your financial behavior.
 5️⃣ Cultivate Habits: Explore the Mindset section to stay focused on your financial health.
+
 ---
 
 ## 🖥️ Technologies
@@ -54,7 +56,7 @@ This is the Mobile Edition (v1-Alpha) of the Money Tracker ecosystem.
 
 ## 📸 Preview
 
-![Dashboard Screenshot](https://github.com/MilenaRPotes/MoneyTracker/blob/main/Money%20Tracker%20Income.png)
+![Dashboard Screenshot](https://github.com/MilenaRPotes/FinanceMovilAPP/blob/main/Mobile.jpg)
 
 ---
 
