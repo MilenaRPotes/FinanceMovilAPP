@@ -95,6 +95,9 @@
 	  <MauiXaml Update="Views\GoalsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\MindsetDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\MindsetPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

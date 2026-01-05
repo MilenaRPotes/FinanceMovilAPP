@@ -37,13 +37,13 @@ namespace FinanceMovilApp.ViewModels
         {
             _dbService = dbService;
             Budgets = new ObservableCollection<BudgetModel>();
-            // Obtenemos el mes
+            // Obtiene el mes / Get the month
             string nombreMes = DateTime.Now.ToString("MMMM", CultureInfo.CurrentCulture).ToUpper();
 
-            // Asignamos el Título de la página
+            // Asigna el Título de la página / Assign the Page Title
             Title = $"PRESUPUESTO DE {nombreMes}";
 
-            // Asignamos la propiedad para usarla en el Label de "Ingreso Disponible"
+            // Asignamos la propiedad para usarla en el Label de "Ingreso Disponible" / We assign the property to use it in the "Available Income" Label
             CurrentMonth = nombreMes;
 
         }
@@ -57,13 +57,13 @@ namespace FinanceMovilApp.ViewModels
             var currentMonth = DateTime.Now.Month;
             var currentYear = DateTime.Now.Year;
 
-            // 1. Obtener Ingresos Reales del mes (La base del pastel)
+            // 1. Obtener Ingresos Reales del mes (La base del pastel)/ 1. Get Actual Income for the month (The base of the pie)
             TotalIncome = await _dbService.GetMonthlyIncomeAsync(currentMonth, currentYear);
 
-            // Si no hay ingresos aún, usamos una base ficticia para no romper los cálculos
+            // Si no hay ingresos aún, usamos una base ficticia para no romper los cálculos/ If there is no income yet, we use a fictitious base to not break the calculations
             if (TotalIncome == 0) TotalIncome = 1;
 
-            // 2. Obtener Presupuestos
+            // 2. Obtener Presupuestos/ 2. Get Budgets
             var budgetList = await _dbService.GetBudgetsForMonthAsync(currentMonth, currentYear);
 
             Budgets.Clear();
@@ -75,7 +75,7 @@ namespace FinanceMovilApp.ViewModels
                 assignedSum += item.PlannedAmount;
             }
 
-            // 3. Calcular Resumen
+            // 3. Calcular Resumen/ 3. Calculate Summary
             TotalAssigned = assignedSum;
             RemainingToAssign = TotalIncome - TotalAssigned;
             AssignedPercentage = (double)(TotalAssigned / TotalIncome);
@@ -86,7 +86,7 @@ namespace FinanceMovilApp.ViewModels
         [RelayCommand]
         private async Task AddBudget()
         {
-            // Pasamos el ingreso mensual para poder calcular porcentajes
+            // Pasamos el ingreso mensual para poder calcular porcentajes/ We pass the monthly income to be able to calculate percentages
             var navParam = new Dictionary<string, object>
             {
                 { "MonthlyIncome", TotalIncome }

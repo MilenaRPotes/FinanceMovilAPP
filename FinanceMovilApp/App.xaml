@@ -8,43 +8,45 @@
             <!--
             ================================================================
             1. PALETA DE COLORES (Basada en Identidad Visual de la app )
-            Definimos TODOS los colores para ambos temas aquí.
+            1. COLOR PALETTE (Based on the App's Visual Identity)
+          
             ================================================================
             -->
             
-            <!-- Paleta Modo Oscuro (Tema Estandar) -->
-            <!-- Azul Noche -->
+            <!-- Paleta Modo Oscuro 
+                 Dark Mode Palette-->
+            <!-- Azul Noche / Midnight Blue -->
             <Color x:Key="DarkPrimaryBackground">#0D1B2A</Color>
-            <!-- Azul Acero -->
+            <!-- Azul Acero/  -->
             <Color x:Key="DarkSecondaryBackground">#1B263B</Color>
-            <!-- Blanco Hueso -->
+            <!-- Blanco Hueso / Bone White-->
             <Color x:Key="DarkPrimaryText">#F8F9FA</Color>
-            <!-- Gris Perla -->
+            <!-- Gris Perla / Pearl Gray-->
             <Color x:Key="DarkSecondaryText">#E0E1DD</Color>
-            <!-- Dorado Imperial -->
+            <!-- Dorado Imperial / Imperial Gold -->
             <Color x:Key="DarkAccent">#FFC300</Color>
-            
-            <!-- Paleta Modo Claro -->
-            <!-- Blanco Hueso -->
+
+            <!-- Paleta Modo Claro / Light Mode Palette-->
+            <!-- Blanco Hueso / Bone White -->
             <Color x:Key="LightPrimaryBackground">#F8F9FA</Color>
-            <!-- Blanco Puro -->
+            <!-- Blanco Puro / Pure White-->
             <Color x:Key="LightSecondaryBackground">#FFFFFF</Color>
             <!-- Azul Noche -->
             <Color x:Key="LightPrimaryText">#0D1B2A</Color>
-            <!-- Gris Piedra -->
+            <!-- Gris Piedra /Stone Gray -->
             <Color x:Key="LightSecondaryText">#415A77</Color>
             <!-- Azul  -->
             <Color x:Key="LightAccent">#0077B6</Color>
 
 
-            <!-- Paleta de Estado (Común para ambos temas) -->
+            <!-- Paleta de Estado (Común para ambos temas) / Status Palette (Common for both themes)-->
             <Color x:Key="VerdeCrecimiento">#4CAF50</Color>
             <Color x:Key="RojoCoral">#E57373</Color>
 
             <!--
             ================================================================
             2. DEFINICIÓN DE FUENTES (Tipografía)
-            Registo de fuentes personalizadas.
+            Registo de fuentes personalizadas. / FONT DEFINITION (Typography), Custom font registration
             ================================================================
             -->
             <OnPlatform x:Key="LoraFont" x:TypeArguments="x:String">
@@ -58,14 +60,11 @@
 
             <!--
             ================================================================
-            3. ESTILOS GLOBALES DE CONTROLES
-            Aquí traducimos nuestros mockups a estilos reutilizables.
-            Por defecto, los enlazamos a los colores del Modo Oscuro.
-            La lógica para cambiarlos dinámicamente se pondra lueog
+            3. ESTILOS GLOBALES DE CONTROLES / GLOBAL CONTROL STYLES
             ================================================================
             -->
 
-            <!-- Estilo para el botón principal (CTA - Call to Action) -->
+            <!-- Estilo para el botón principal (CTA - Call to Action) / Primary Button Style  -->
             <Style TargetType="Button" x:Key="BotonPrimario">
                 <Setter Property="BackgroundColor" Value="{StaticResource DarkAccent}" />
                 <Setter Property="TextColor" Value="{StaticResource DarkPrimaryBackground}" />
@@ -77,7 +76,7 @@
                 <Setter Property="HeightRequest" Value="50" />
             </Style>
 
-            <!-- Estilo para títulos principales (como "Tu Fortaleza Financiera") -->
+            <!-- Estilo para títulos principales / Main Title Style -->
             <Style TargetType="Label" x:Key="TituloPrincipal">
                 <Setter Property="FontFamily" Value="LoraFont" />
                 <Setter Property="TextColor" Value="{StaticResource DarkAccent}"/>
@@ -85,21 +84,21 @@
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
             </Style>
 
-            <!-- Estilo para texto de cuerpo normal -->
+            <!-- Estilo para texto de cuerpo normal / Normal Body Text Style -->
             <Style TargetType="Label" x:Key="CuerpoTexto">
                 <Setter Property="FontFamily" Value="InterFont" />
                 <Setter Property="TextColor" Value="{StaticResource DarkPrimaryText}"/>
                 <Setter Property="FontSize" Value="16" />
             </Style>
 
-            <!-- Estilo para texto secundario o descriptivo -->
+            <!-- Estilo para texto secundario o descriptivo / Secondary or Descriptive Text Style -->
             <Style TargetType="Label" x:Key="TextoSecundario">
                 <Setter Property="FontFamily" Value="InterFont" />
                 <Setter Property="TextColor" Value="{StaticResource DarkSecondaryText}"/>
                 <Setter Property="FontSize" Value="14" />
             </Style>
 
-            <!-- Estilo base para las páginas, define el color de fondo -->
+            <!-- Estilo base para las páginas, define el color de fondo / Base style for pages, defines the background color  -->
             <Style TargetType="ContentPage">
                 <Setter Property="BackgroundColor" Value="{StaticResource DarkPrimaryBackground}" />
             </Style>

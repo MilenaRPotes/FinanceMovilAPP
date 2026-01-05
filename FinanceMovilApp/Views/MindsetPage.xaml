@@ -1,12 +1,181 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:FinanceMovilApp.ViewModels"
+             xmlns:models="clr-namespace:FinanceMovilApp.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="FinanceMovilApp.Views.MindsetPage"
-             Title="MindsetPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Mentalidad"
+             BackgroundColor="{StaticResource DarkPrimaryBackground}">
+    
+    <!-- Cargar datos automáticamente al entrar -->
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Appearing" Command="{Binding LoadDataCommand}" />
+    </ContentPage.Behaviors>
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="25" Padding="20">
+            <!--1. ORACULO (Mensaje aleatorio) -->
+            <Frame BackgroundColor="{StaticResource DarkSecondaryBackground}"
+                   BorderColor="{StaticResource DarkAccent}"
+                   CornerRadius="15"
+                   HasShadow="True"
+                   Padding="20">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="📜 SABIDURÍA DEL DÍA" 
+                           TextColor="{StaticResource DarkAccent}" 
+                           FontSize="10" 
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center">
+                    </Label >
+
+                    <Label Text="{Binding RandomMessage}"
+                           TextColor="{StaticResource LightPrimaryBackground}"
+                           FontSize="16"
+                           FontAttributes="Italic"
+                           HorizontalTextAlignment="Center"
+                           FontFamily="LoraFont">
+                    </Label>
+                    <Label Text="{Binding RandomAuthor}"
+                           TextColor="{StaticResource LightSecondaryText}"
+                           FontSize="12"
+                           HorizontalOptions="End">
+                    </Label>
+                </VerticalStackLayout>
+            </Frame>
+            <!--2. LAS 7 CURAS (Lista Vertical de Lecciones)-->
+            <VerticalStackLayout Spacing="10">
+                <Label Text="EL CAMINO A LA RIQUEZA"
+                       Style="{StaticResource TituloPrincipal}"
+                       FontSize="16"
+                       HorizontalOptions="Start">
+                </Label>
+
+                <CollectionView ItemsSource="{Binding Lessons}" SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:MindsetItem">
+                            <!-- Tarjeta de Lección -->
+                            <Frame CornerRadius="10"
+                                   Padding="15"
+                                   BorderColor="Transparent"
+                                   HasShadow="True">
+                                <!-- ESTILOS DINÁMICOS (TRIGGERS) -->
+                                <Frame.Triggers>
+                                    <!-- Si está BLOQUEADO: Fondo oscuro y opacidad baja -->
+                                    <DataTrigger TargetType="Frame" Binding="{Binding IsLocked}" Value="True">
+                                        <Setter Property="BackgroundColor" Value="#151515" />
+                                        <Setter Property="Opacity" Value="0.6" />
+                                    </DataTrigger>
+                                    <!-- Si está ABIERTO: Fondo normal -->
+                                    <DataTrigger TargetType="Frame" Binding="{Binding IsLocked}" Value="False">
+                                        <Setter Property="BackgroundColor" Value="{StaticResource DarkSecondaryBackground}" />
+                                        <Setter Property="Opacity" Value="1.0" />
+                                    </DataTrigger>
+                                    <!-- Si está LEÍDO: Borde Verde -->
+                                    <DataTrigger TargetType="Frame" Binding="{Binding IsRead}" Value="True">
+                                        <Setter Property="BorderColor" Value="{StaticResource VerdeCrecimiento}" />
+                                    </DataTrigger>
+                                </Frame.Triggers>
+
+                                <!--Gesto para abrir -->
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MindsetViewModel}}, Path=OpenLessonCommand}"
+                                                          CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+
+                                <Grid ColumnDefinitions="40, *, 30">
+                                    <Image Grid.Column="0" Source="book.png" Aspect="AspectFit" HeightRequest="25"/>
+
+                                    <!-- Textos -->
+                                    <VerticalStackLayout Grid.Column="1" Margin="10,0,0,0">
+                                        <Label Text="{Binding Title}" 
+                                               TextColor="{StaticResource LightPrimaryBackground}" 
+                                               FontAttributes="Bold" 
+                                               FontSize="14"
+                                               FontFamily="InterFont"/>
+                                        <Label Text="{Binding Subtitle}" 
+                                               TextColor="{StaticResource LightSecondaryText}" 
+                                               FontSize="12" 
+                                               LineBreakMode="TailTruncation"/>
+                                    </VerticalStackLayout>
+
+                                    <!-- CANDADO 🔒 (Visible si IsLocked = True) -->
+                                    <Image Grid.Column="2"
+                                           Source="lock.png"
+                                           HeightRequest="24"
+                                           WidthRequest="24"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="End"
+                                           IsVisible="{Binding IsLocked}"
+                                           Opacity="0.6"></Image>   
+
+                                    <!-- CHECK ✅ (Visible si IsRead = True) -->
+                                    <Image Grid.Column="2"
+                                           Source="check2.png"
+                                           HeightRequest="26"
+                                           WidthRequest="26"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="End"
+                                           IsVisible="{Binding IsRead}">    
+                                    </Image>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+            <!-- 3. BIBLIOTECA SUGERIDA (Carrusel Horizontal) -->
+            <VerticalStackLayout Spacing="10" Margin="0,10,0,20">
+                <Label Text="BIBLIOTECA DE SABIOS" 
+                       Style="{StaticResource TituloPrincipal}" 
+                       FontSize="16" 
+                       HorizontalOptions="Start"/>
+
+                <CollectionView ItemsSource="{Binding Books}" 
+                                SelectionMode="None" 
+                                HeightRequest="190">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="15"/>
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:BookRecommendation">
+                            <Frame CornerRadius="15"
+                                   WidthRequest="130"
+                                   HeightRequest="180"
+                                   HasShadow="True"
+                                   BorderColor="Transparent"
+                                   Padding="0" 
+                                   IsClippedToBounds="True">    
+
+                                <Frame.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="{Binding ColorStart}" Offset="0.1" />
+                                        <GradientStop Color="{Binding ColorEnd}" Offset="1.0" />
+                                    </LinearGradientBrush>
+                                </Frame.Background>
+
+                                <Grid RowDefinitions="*, Auto, Auto" Padding="15">
+                                    <Label Grid.Row="0" Text="{Binding Title}" TextColor="White" FontAttributes="Bold" FontSize="15" LineBreakMode="WordWrap" FontFamily="LoraFont">
+                                        <Label.Shadow>
+                                            <Shadow Brush="Black" Offset="1,1" Opacity="0.5"/>
+                                        </Label.Shadow>
+                                    </Label>
+
+                                    <Label Grid.Row="1" Text="{Binding Author}" TextColor="White" FontSize="11" Opacity="0.9" Margin="0,5,0,0"/>
+
+                                    <Label Grid.Row="2" Text="{Binding Category}" TextColor="White" FontSize="10" FontAttributes="Italic" Opacity="0.8" VerticalOptions="End"/>
+                                </Grid>
+                            </Frame>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

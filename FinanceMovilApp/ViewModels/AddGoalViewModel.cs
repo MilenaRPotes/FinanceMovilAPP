@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace FinanceMovilApp.ViewModels
 {
-    //Recibe la Meta a editar
+    //Recibe la Meta a editar/Edicion
     [QueryProperty(nameof(GoalToEdit), "GoalToEdit")]
     public partial class AddGoalViewModel : BaseViewModel
     {
         private readonly LocalDbService _dbService;
-        private int _goalId = 0;// Para identificar si es nueva o edicion
+        private int _goalId = 0;// Para identificar si es nueva o edicion/To identify if it's new or edit
 
         [ObservableProperty]
         private string name;
@@ -30,7 +30,7 @@ namespace FinanceMovilApp.ViewModels
         [ObservableProperty]
         private string visualIcon = "chest_gold";
 
-        // Propiedad para recibir la meta a editar
+        // Propiedad para recibir la meta a editar/Edicion
         public GoalModel GoalToEdit
         {
             set
@@ -51,9 +51,9 @@ namespace FinanceMovilApp.ViewModels
         {
             _dbService = dbService;
 
-            Deadline = DateTime.Now.AddMonths(1); // Establecer una fecha límite predeterminada
-            MinDate = DateTime.Now; // La fecha mínima es hoy
-            Title = "Nueva Meta"; //Titulo por defecto
+            Deadline = DateTime.Now.AddMonths(1); // Establecer una fecha límite predeterminada/ Set a default deadline
+            MinDate = DateTime.Now; // La fecha mínima es hoy/ The minimum date is today
+            Title = "Nueva Meta"; 
         }
 
         [RelayCommand]
@@ -67,12 +67,12 @@ namespace FinanceMovilApp.ViewModels
 
             var goal = new GoalModel
             {
-                Id = _goalId, // si es 0, es nueva; si no, edita existente
+                Id = _goalId, // si es 0, es nueva; si no, edita existente/ if it's 0, it's new; otherwise, edit existing
                 Name = this.Name,
                 TargetAmount = this.TargetAmount,
                 Deadline = this.Deadline,
                 VisualIcon = this.VisualIcon,
-                // Mantenemos el monto actual si estamos editando, si es nueva empieza en 0
+                // Mantenemos el monto actual si estamos editando, si es nueva empieza en 0/ We keep the current amount if we're editing, if it's new it starts at 0
                 CurrentAmount = (_goalId != 0) ? await GetCurrentAmount(_goalId) : 0,
                 IsCompleted = false
             };
@@ -80,11 +80,11 @@ namespace FinanceMovilApp.ViewModels
             await _dbService.SaveGoalAsync(goal);
 
             await App.Current.MainPage.DisplayAlert("¡Meta Creada!", "El primer paso a la riqueza es definir el destino.", "OK");
-            // Regresar a la pantalla anterior
+            // Regresar a la pantalla anterior/ Return to the previous screen
             await Shell.Current.GoToAsync("..");
         }
 
-        //recuperar el monto actual si estamos editando (para no perder el ahorro)
+        //recuperar el monto actual si estamos editando (para no perder el ahorro)/ retrieve the current amount if we're editing (to not lose the savings)
         private async Task<decimal> GetCurrentAmount(int id)
         {
             var existing = await _dbService.GetGoalByIdAsync(id);

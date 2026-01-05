@@ -1,9 +1,10 @@
 using FinanceMovilApp.ViewModels;
+
 namespace FinanceMovilApp.Views;
 
-public partial class MindsetPage : ContentPage
+public partial class MindsetDetailPage : ContentPage
 {
-    public MindsetPage(MindsetViewModel viewModel)
+    public MindsetDetailPage(MindsetDetailViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;

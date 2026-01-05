@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:FinanceMovilApp.ViewModels"
+             x:Class="FinanceMovilApp.Views.MindsetDetailPage"
+             Title="Lección"
+             BackgroundColor="{StaticResource DarkPrimaryBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="25" Padding="25,40,25,40">
+
+            <Frame HeightRequest="100" WidthRequest="100"
+                   CornerRadius="50"
+                   BackgroundColor="#20B88746" 
+                   BorderColor="{StaticResource DoradoBabilonia}"
+                   HasShadow="False"
+                   Padding="0"
+                   HorizontalOptions="Center">
+                <Image Source="{Binding Lesson.Icon}" 
+                       Aspect="AspectFit" 
+                       Margin="22"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+            </Frame>
+
+            <Label Text="{Binding Lesson.Title}" 
+                   Style="{StaticResource TituloPrincipal}" 
+                   FontSize="24" 
+                   HorizontalTextAlignment="Center"
+                   HorizontalOptions="Center"/>
+
+            <Frame BackgroundColor="#15FFFFFF" 
+                   BorderColor="Transparent"
+                   CornerRadius="15"
+                   Padding="20">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="✨ PRINCIPIO CLAVE" 
+                           TextColor="{StaticResource DarkAccent}" 
+                           FontSize="10" 
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                          CharacterSpacing="1.5"/>
+
+                    <Label Text="{Binding Lesson.Subtitle}" 
+                           TextColor="#FFECB3" 
+                           FontSize="18" 
+                           FontAttributes="Italic"
+                           FontFamily="LoraFont"
+                           HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <BoxView HeightRequest="1" 
+                     Color="{StaticResource DarkAccent}" 
+                     Opacity="0.3" 
+                     WidthRequest="100" 
+                     HorizontalOptions="Center"/>
+
+            <Label Text="{Binding Lesson.Content}" 
+                   TextColor="#E0E0E0" 
+                   FontSize="17" 
+                   LineHeight="1.6"
+                   FontFamily="LoraFont"
+                   HorizontalTextAlignment="Start"/>
+
+            <Button Text="HE APRENDIDO ESTA LECCIÓN" 
+                    Command="{Binding CompleteLessonCommand}"
+                    Style="{StaticResource BotonPrimario}"
+                    CornerRadius="25"
+                    HeightRequest="55"
+                    FontAttributes="Bold"
+                    Margin="0,30,0,20"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -56,6 +56,15 @@ namespace FinanceMovilApp
             builder.Services.AddTransient<BudgetViewModel>();
             builder.Services.AddTransient<SetBudgetPage>();
             builder.Services.AddTransient<SetBudgetViewModel>();
+
+            // --- 6.Mindset ---
+            builder.Services.AddTransient<MindsetPage>();
+            builder.Services.AddTransient<MindsetViewModel>();
+
+            // Mindset Detail and ViewModel
+            builder.Services.AddTransient<MindsetDetailPage>();
+            builder.Services.AddTransient<MindsetDetailViewModel>();
+
             return builder.Build();
         }
     }

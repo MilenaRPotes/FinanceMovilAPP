@@ -18,15 +18,15 @@ namespace FinanceMovilApp.Models
         public string Description { get; set; }
         public DateTime Date { get; set; }
 
-        //Category details 
+        //Category details // Detalles de la categoría
         public string CategoryName { get; set; }   
-        public string CategoryIcon { get; set; } // bus, car, food, etc.
+        public string CategoryIcon { get; set; } // bus, car, food, etc. 
 
-        public bool IsIncome { get; set; } // true for income, false for expense
+        public bool IsIncome { get; set; } // true for income, false for expense /  true para ingreso, false para gasto
 
         // --- Feedback additions ---
-        public bool IsRecurring { get; set; } // Indica si la transacción es recurrente
-        public PaymentFrequency Frequency { get; set; } // Frecuencia de pago 
+        public bool IsRecurring { get; set; } // Indica si la transacción es recurrente / Indicates if the transaction is recurring
+        public PaymentFrequency Frequency { get; set; } // Frecuencia de pago  / Payment frequency
 
     }
 }

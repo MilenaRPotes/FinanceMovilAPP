@@ -12,14 +12,14 @@ using FinanceMovilApp.Helpers;
 
 namespace FinanceMovilApp.ViewModels
 {
-    //Permite recibir una transaccion para editar 
+    //Permite recibir una transaccion para editar / Edit
     [QueryProperty(nameof(TransactionToEdit), "TransactionToEdit")]
     public partial class AddTransactionViewModel : BaseViewModel
     {
         private readonly LocalDbService _dbService;
-        private int _transactionId = 0; // 0 = Nueva, >0 = Editar
+        private int _transactionId = 0; // 0 = Nueva, >0 = Editar / 0 = New, >0 = Edit
 
-        // Binding properties for the transaction details
+        // Propiedades de enlace para los detalles de la transacción// Binding properties for the transaction details
         [ObservableProperty]
         private decimal amount;
 
@@ -29,9 +29,9 @@ namespace FinanceMovilApp.ViewModels
         [ObservableProperty]
         private DateTime date;
 
-        // Al cambiar IsIncome, se actualiza la lista de categorías automáticamente
+        // Al cambiar IsIncome, se actualiza la lista de categorías automáticamente/ When IsIncome changes, the category list is updated automatically
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(TransactionTypeLabel))] // Updates the label when toggled
+        [NotifyPropertyChangedFor(nameof(TransactionTypeLabel))] // Updates the label when toggled// Actualiza la etiqueta al cambiar
         private bool isIncome;
 
         partial void OnIsIncomeChanged(bool value)
@@ -40,7 +40,7 @@ namespace FinanceMovilApp.ViewModels
         }
 
         //-- Categorias --
-        //Lista que vera el usuario en el Picker 
+        //Lista que vera el usuario en el Picker // List that the user will see in the Picker
         [ObservableProperty]
         private ObservableCollection<string> categories;
 
@@ -51,12 +51,12 @@ namespace FinanceMovilApp.ViewModels
         [ObservableProperty]
         private bool isRecurring;
 
-        // Lista de opciones para el picker (Semanal, Mensual...)
+        // Lista de opciones para el picker (Semanal, Mensual...)/ List of options for the picker (Weekly, Monthly...)
         public List<string> Frequencies { get; } = Enum.GetNames(typeof(PaymentFrequency)).ToList();
         [ObservableProperty]
         private string selectedFrequency;
 
-        //Propiedad para recibir la transaccion a editar 
+        //Propiedad para recibir la transaccion a editar / Edicion
         public TransactionModel TransactionToEdit
         {
             set 
@@ -83,19 +83,19 @@ namespace FinanceMovilApp.ViewModels
             }
         }
 
-        // Calculated property for the UI label
+        // Calculated property for the UI label/ Etiqueta calculada para la UI
         public string TransactionTypeLabel => IsIncome ? "Ingreso" : "Gasto";
 
         public AddTransactionViewModel(LocalDbService dbService)
         {
-            _dbService = dbService; //asignacion inicial del servicio de base de datos
-            //Inicia el formulario limpio 
+            _dbService = dbService; //asignacion inicial del servicio de base de datos/ initial assignment of the database service
+            //Inicia el formulario limpio / Start with a clean form
             ClearForm();
-            //Inicializar categorias
+            //Inicializar categorias/ Initialize categories
             UpdateCategories();
         }
 
-        //Metodo para limpiar el formulario
+        //Metodo para limpiar el formulario/ Method to clear the form
         private void ClearForm()
         {
             _transactionId = 0;
@@ -110,7 +110,7 @@ namespace FinanceMovilApp.ViewModels
 
         private void UpdateCategories()
         {
-            //se alimenta de las listas estaticas del helper
+            //se alimenta de las listas estaticas del helper/ it is fed from the static lists of the helper
 
             if (IsIncome)
             {
@@ -121,7 +121,7 @@ namespace FinanceMovilApp.ViewModels
                 Categories = new ObservableCollection<string>(CategoryHelper.ExpenseCategories);
             }
 
-            // Solo resetear si no estamos editando o si la categoría actual no está en la lista nueva
+            // Solo resetear si no estamos editando o si la categoría actual no está en la lista nueva/ Only reset if we're not editing or if the current category is not in the new list
             if (string.IsNullOrEmpty(SelectedCategory) || !Categories.Contains(SelectedCategory))
             {
                 SelectedCategory = Categories.FirstOrDefault();
@@ -144,7 +144,7 @@ namespace FinanceMovilApp.ViewModels
                 return;
             }
 
-            //Convertir el string seleccionado del Picker al Enum correspondiente
+            //Convertir el string seleccionado del Picker al Enum correspondiente/ Convert the selected string from the Picker to the corresponding Enum
             PaymentFrequency freEnum = PaymentFrequency.None;
             if (IsRecurring && !string.IsNullOrEmpty(SelectedFrequency)) 
             {
@@ -153,19 +153,19 @@ namespace FinanceMovilApp.ViewModels
 
             var newTransaction = new TransactionModel
             {   
-                Id=_transactionId, // Mantener el Id para edición
+                Id=_transactionId, // Mantener el Id para edición/ Keep the Id for editing
                 Amount = this.Amount,
                 Description = this.Description,
                 Date = this.Date,
                 IsIncome = this.IsIncome,
                 IsRecurring = this.IsRecurring,
                 CategoryName = this.SelectedCategory,
-                CategoryIcon = "tag", //Icono por defecto
+                CategoryIcon = "tag",
                 Frequency = freEnum
             };
 
             await _dbService.SaveTransactionAsync(newTransaction);
-            // si es edicion , volver atras. si es nueva se sigue agregando.
+            // si es edicion , volver atras. si es nueva se sigue agregando./ if it's editing, go back. if it's new, keep adding.
             if (_transactionId != 0) 
             {
                 await App.Current.MainPage.DisplayAlert("Actualizado", "El movimiento ha sido corregido.", "OK");
@@ -174,7 +174,7 @@ namespace FinanceMovilApp.ViewModels
             else 
             {
                 await App.Current.MainPage.DisplayAlert("¡Hecho!", "Transacción registrada correctamente.", "OK");
-                //Limpiar el formulario después de guardar
+                //Limpiar el formulario después de guardar/ Clear the form after saving
                 ClearForm();
             }
                 

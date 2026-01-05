@@ -8,10 +8,10 @@ namespace FinanceMovilApp.Models
 {
     public enum PaymentFrequency
     {
-        None, //pago unico 
-        Weekly, //semanal
-        BiWeekly, //quincenal
-        Monthly, //mensual
-        yearly //anual
+        None, //pago unico / one-time payment
+        Weekly, //semanal / weekly
+        BiWeekly, //quincenal / bi-weekly
+        Monthly, //mensual / monthly
+        yearly //anual / yearly
     }
 }

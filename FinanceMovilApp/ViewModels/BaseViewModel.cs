@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 
 namespace FinanceMovilApp.ViewModels
 {
-    // hereda de ObservableObject para soporte de notificaciones de cambio de propiedad
+    // hereda de ObservableObject para soporte de notificaciones de cambio de propiedad // inherits from ObservableObject for property change notification support
     public partial class BaseViewModel : ObservableObject
     {
         [ObservableProperty]
