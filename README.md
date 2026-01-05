@@ -18,9 +18,11 @@ Designed to provide a seamless mobile experience, helping users manage their fin
 📊 Real-time Dashboard: Instant summaries of balance, income, and expenses.
 
 🎯 Financial Goals: Set and track specific savings targets (Metas).
+
 💰 Budget Management: Control your monthly spending limits (Presupuesto).
+
 🧠 Financial Mindset: Dedicated section for developing healthy money habits (Mentalidad).
-📈 Interactive Charts: Visual data representation powered by LiveCharts2.
+
 📱 Modern UI: Responsive design with fluid navigation and custom XAML styling.
 
 ---
@@ -28,9 +30,13 @@ Designed to provide a seamless mobile experience, helping users manage their fin
 ## 🛠 How It Works
 
 1️⃣ Track Transactions: Quickly log your daily income and expenses.
+
 2️⃣ Set Goals: Define financial milestones and monitor your progress.
+
 3️⃣ Control Budgets: Assign limits to categories to avoid overspending.
+
 4️⃣ Analyze Trends: Use interactive charts to understand your financial behavior.
+
 5️⃣ Cultivate Habits: Explore the Mindset section to stay focused on your financial health.
 
 ---
