@@ -17,11 +17,11 @@ Designed to provide a seamless mobile experience, helping users manage their fin
 
 📊 Real-time Dashboard: Instant summaries of balance, income, and expenses.
 
-🎯 Financial Goals: Set and track specific savings targets (Metas).
+🎯 Financial Goals: Set and track specific savings targets.
 
-💰 Budget Management: Control your monthly spending limits (Presupuesto).
+💰 Budget Management: Control your monthly spending limits.
 
-🧠 Financial Mindset: Dedicated section for developing healthy money habits (Mentalidad).
+🧠 Financial Mindset: Dedicated section for developing healthy money habits.
 
 📱 Modern UI: Responsive design with fluid navigation and custom XAML styling.
 
