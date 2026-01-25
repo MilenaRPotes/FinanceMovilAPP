@@ -3,10 +3,12 @@ using CommunityToolkit.Mvvm.Input;
 using FinanceMovilApp.Models;
 using FinanceMovilApp.Services;
 using System.Threading.Tasks;
+using Microsoft.Maui.Controls.Internals;
 
 namespace FinanceMovilApp.ViewModels
 {
     [QueryProperty(nameof(Lesson), "Lesson")]
+    [Preserve(AllMembers = true)] // 🛡️ Evita que el Linker borre este VM en el APK
     public partial class MindsetDetailViewModel : BaseViewModel
     {
         private readonly LocalDbService _dbService;

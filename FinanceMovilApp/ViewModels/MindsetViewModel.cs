@@ -6,11 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Microsoft.Maui.Controls.Internals;
 
 namespace FinanceMovilApp.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public partial class MindsetViewModel : BaseViewModel
     {
+        
         private readonly LocalDbService _dbService;
 
         //Lista de las 7 lecciones / List of the 7 lessons
@@ -138,14 +141,23 @@ namespace FinanceMovilApp.ViewModels
                 return; // Cancelamos la navegación/ We cancel the navigation
             }
 
-            // Si está desbloqueada, navegamos al detalle pasando la lección seleccionada/ If it is unlocked, we navigate to the detail passing the selected lesson
-            var navParam = new Dictionary<string, object>
+            // 2. CORRECCIÓN: Bloque TRY-CATCH para atrapar el error sin cerrar la app
+            try
             {
-                { "Lesson", lesson }
-            };
+                var navParam = new Dictionary<string, object>
+                {
+                    { "Lesson", lesson }
+                };
 
-            await Shell.Current.GoToAsync("MindsetDetailPage", navParam);
-
+                await Shell.Current.GoToAsync("MindsetDetailPage", navParam);
+            }
+            catch (Exception ex)
+            {
+                // Si algo falla, esto te mostrará el error en pantalla en vez de cerrar la app
+                await App.Current.MainPage.DisplayAlert("Error Crítico",
+                    $"No se pudo abrir la lección.\nCausa: {ex.Message}",
+                    "OK");
+            }
         }
 
     }

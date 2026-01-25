@@ -12,7 +12,7 @@
             <Frame HeightRequest="100" WidthRequest="100"
                    CornerRadius="50"
                    BackgroundColor="#20B88746" 
-                   BorderColor="{StaticResource DoradoBabilonia}"
+                   BorderColor="{StaticResource DarkAccent}"
                    HasShadow="False"
                    Padding="0"
                    HorizontalOptions="Center">

@@ -18,6 +18,15 @@ namespace FinanceMovilApp.ViewModels
         [ObservableProperty]
         private decimal totalSaved;
 
+        //El saldo neto actual de la billetera (ingresos - gastos)/ The current net balance of the wallet (income - expenses)
+        [ObservableProperty]
+        private decimal netBalance;
+
+        //Control de visibilidad / Visibility control
+        [ObservableProperty]
+        private string eyeIcon = "visibility";
+
+
         public GoalsViewModel(LocalDbService dbService)
         {
             _dbService = dbService;

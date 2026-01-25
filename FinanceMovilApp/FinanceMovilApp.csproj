@@ -106,4 +106,12 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+	<PropertyGroup Condition="'$(Configuration)' == 'Release' AND '$(TargetPlatformIdentifier)' == 'android'">
+    <RunAOTCompilation>false</RunAOTCompilation>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <PublishTrimmed>false</PublishTrimmed>
+    <TrimMode>none</TrimMode>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
+</PropertyGroup>
 </Project>

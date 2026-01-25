@@ -7,6 +7,7 @@ using SQLite;
 
 namespace FinanceMovilApp.Models
 {
+    [Preserve(AllMembers = true)]
     [Table("Mindset")]
     public class MindsetItem
     {
